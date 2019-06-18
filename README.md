@@ -1,2 +1,2 @@
-# dockerctl
-Docker Control via Ansible
+# containerctl
+Docker and Podman Control via Ansible
