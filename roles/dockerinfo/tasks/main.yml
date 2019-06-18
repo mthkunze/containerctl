@@ -1,0 +1,40 @@
+---
+
+- hosts: "{{server}}"
+  gather_facts: true
+  remote_user: "{{remoteuser}}"
+  become: yes
+  become_method: sudo
+  become_user: root
+
+
+  tasks:
+    - name: Get info on docker host
+      docker_host_info:
+      register: result
+
+    - name: Get info on docker host and list images
+      docker_host_info:
+        images: yes
+      register: result
+
+    - name: Get info on docker host and list images matching the filter
+      docker_host_info:
+        images: yes
+        images_filters:
+          label: "{{label}}"
+      register: result
+
+    - name: Get info on docker host and verbose list images
+      docker_host_info:
+        images: yes
+        verbose_output: yes
+      register: result
+
+    - name: Get info on docker host and used disk space
+      docker_host_info:
+        disk_usage: no
+      register: result
+
+    - debug:
+        var: result.host_info
